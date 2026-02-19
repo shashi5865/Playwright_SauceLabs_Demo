@@ -31,5 +31,12 @@ test.describe("Product Page Validation", () => {
     ).toBeVisible();
     await page.goBack();
     await expect(page.locator(ProductPageLocators.menubutton)).toBeVisible();
-  });
+  })
+
+  test.only("Validate Products Page", async ({ page })=>
+  {
+    await productPage.validateAllProductsDisplayed();
+    await productPage.addFirstProductToCart();
+    await productPage.addAllProductsToCart();
+  })
 });

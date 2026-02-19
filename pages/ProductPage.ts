@@ -1,20 +1,54 @@
-import { Page } from '@playwright/test'
-import { ProductPageLocators } from '../locators/ProductPageLocators'
+import { Page } from "@playwright/test";
+import { ProductPageLocators } from "../locators/ProductPageLocators";
 
-export class ProductPage
-{
-    constructor(private page: Page)
-    {}
-    async logoutPage()
-    {
-        await this.page.click(ProductPageLocators.menubutton)
-        await this.page.click(ProductPageLocators.logoutlink)
-    }
-    async aboutPage()
-    {
-        
-        await this.page.click(ProductPageLocators.menubutton)
-        await this.page.click(ProductPageLocators.aboutlink)
+export class ProductPage {
+  constructor(private page: Page) {}
+  async logoutPage() {
+    await this.page.click(ProductPageLocators.menubutton);
+    await this.page.click(ProductPageLocators.logoutlink);
+  }
+  async aboutPage() {
+    await this.page.click(ProductPageLocators.menubutton);
+    await this.page.click(ProductPageLocators.aboutlink);
+  }
+  async validateAllProductsDisplayed() {
+    const names = await this.page
+      .locator(ProductPageLocators.productName)
+      .allTextContents();
+    const descriptions = await this.page
+      .locator(ProductPageLocators.productDesxription)
+      .allTextContents();
+    const prices = await this.page
+      .locator(ProductPageLocators.productPrice)
+      .allTextContents();
+    const buttons = await this.page
+      .locator(ProductPageLocators.addToCartButton)
+      .count();
 
+    if (names.length === 0) throw new Error("No products found on the page");
+    if (
+      names.length !== descriptions.length ||
+      names.length !== prices.length ||
+      names.length !== buttons
+    )
+      throw new Error("mismatch in the number of product details");
+  }
+  async addFirstProductToCart() {
+    await this.page
+      .locator(ProductPageLocators.addToCartButton)
+      .first()
+      .click();
+  }
+  //
+  async addAllProductsToCart() {
+    const buttons = this.page.locator(ProductPageLocators.addToCartButton);
+    const buttonCount = await buttons.count();
+
+    for (let i = 0; i < buttonCount; i++) {
+      await buttons.nth(i).click();
     }
+  }
+  async scrollToElement(locator: string) {
+    await this.page.locator(locator).scrollIntoViewIfNeeded();
+  }
 }
