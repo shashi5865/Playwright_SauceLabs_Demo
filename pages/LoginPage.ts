@@ -8,4 +8,10 @@ export class LoginPage {
       await this.page.fill(LoginLocators.passWordInput, password),
       await this.page.click(LoginLocators.loginButton));
   }
+  private errorMessage = ".error-message-container";
+
+async getErrorMessage() {
+  return this.page.locator(this.errorMessage);
+}
+
 }
