@@ -25,12 +25,3 @@ test.describe("Login Tests", () => {
     });
   });
 });
-
-// test("Login with valid credentials", async ({ page }) => {
-//   const loginPage = new LoginPage(page);
-
-//   await page.goto(BASE_URL);
-//   await loginPage.login(USERNAME, PASSWORD);
-//   await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html");
-//   await page.waitForTimeout(3000);
-// });

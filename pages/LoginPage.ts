@@ -10,8 +10,7 @@ export class LoginPage {
   }
   private errorMessage = ".error-message-container";
 
-async getErrorMessage() {
-  return this.page.locator(this.errorMessage);
-}
-
+  async getErrorMessage() {
+    return this.page.locator(this.errorMessage);
+  }
 }
