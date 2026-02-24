@@ -3,6 +3,7 @@ import { BASE_URL } from "../utils/env.Config";
 import { validUser } from "../test-data/loginData";
 import { ProductPage } from "../pages/ProductPage";
 import { LoginPage } from "../pages/LoginPage";
+import { productsToCart } from "../test-data/products";
 
 test.describe("Product Page Validation @regression", () => {
   let loginPage: LoginPage;
@@ -42,5 +43,9 @@ test.describe("Product Page Validation @regression", () => {
   test("Validate Add All Products To Cart @regression", async () => {
     await productPage.addAllProductsToCart();
   });
+
+  test("Validate add specific products to cart", async ({ page })=> {
+    await productPage.addSpecificProductToCart(productsToCart);
+  })
 });
 

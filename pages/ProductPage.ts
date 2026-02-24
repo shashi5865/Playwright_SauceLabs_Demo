@@ -51,4 +51,17 @@ export class ProductPage {
   async scrollToElement(locator: string) {
     await this.page.locator(locator).scrollIntoViewIfNeeded();
   }
+   async addSpecificProductToCart(productName : string[])
+   {
+    const addProducts = this.page.locator(ProductPageLocators.productName)
+    const count = await addProducts.count();
+    for(let i=0; i<count; i++)
+    {
+      const name = await addProducts.nth(i).textContent();
+      if(name && productName.includes(name.trim()))
+      {
+        await this.page.locator(ProductPageLocators.addToCartButton).nth(i).click();
+      }
+    }
+   }
 }
