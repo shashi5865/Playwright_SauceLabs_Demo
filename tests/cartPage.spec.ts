@@ -45,12 +45,19 @@ test.describe("Cart Page Validation", () => {
     expect(cartProducts[0]).toEqual(firstProduct);
   });
   test("Validate All Product added to Cart Page", async ({ page }) => {
-    const allProductsDetails = await productPage.getAllProductDetails()
-    await productPage.addAllProductsToCart()
+    const allProductsDetails = await productPage.getAllProductDetails();
+    await productPage.addAllProductsToCart();
     await productPage.clickOnCartLink();
     const cartProducts = await cartPage.getCartProducts();
     expect(cartProducts).toEqual(allProductsDetails);
   });
-  test("Validate Specific Product added to Cart Page", async ({ page }) => {});
+  test("Validate Specific Product added to Cart Page", async ({ page }) => {
+    const specificProductsDetails = await productPage.getSpecificProductDetails(productsToCart);
+    await productPage.addSpecificProductToCart(productsToCart);
+    await productPage.clickOnCartLink();
+    const cartProducts = await cartPage.getCartProducts();
+    expect(cartProducts).toEqual(specificProductsDetails)
+
+  });
   test("Validate Remove Product Functionality", async ({ page }) => {});
 });
