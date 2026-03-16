@@ -59,7 +59,7 @@ test.describe("Cart Page Validation", () => {
     expect(cartProducts).toEqual(specificProductsDetails)
 
   });
-  test.only("Validate Remove Product Functionality", async ({ page }) => {
+  test("Validate Remove Product Functionality", async ({ page }) => {
     await productPage.addAllProductsToCart();
     await productPage.clickOnCartLink();
     const initialProducts = await cartPage.getCartProducts();
