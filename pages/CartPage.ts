@@ -32,7 +32,7 @@ export class cartPage
     } 
     async removeFirstProduct()
     {
-        await this.page.locator(cartPageLocators.removebutton).click();
+        await this.page.locator(cartPageLocators.removebutton).first().click();
     }
     
 }

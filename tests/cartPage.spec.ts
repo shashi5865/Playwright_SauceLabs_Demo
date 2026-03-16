@@ -59,5 +59,13 @@ test.describe("Cart Page Validation", () => {
     expect(cartProducts).toEqual(specificProductsDetails)
 
   });
-  test("Validate Remove Product Functionality", async ({ page }) => {});
+  test.only("Validate Remove Product Functionality", async ({ page }) => {
+    await productPage.addAllProductsToCart();
+    await productPage.clickOnCartLink();
+    const initialProducts = await cartPage.getCartProducts();
+    expect(initialProducts.length).toBeGreaterThan(0);
+    await cartPage.removeFirstProduct();
+    const updatedCartProducts = await cartPage.getCartProducts()
+    expect(updatedCartProducts.length).toBe(initialProducts.length-1);
+  });
 });
